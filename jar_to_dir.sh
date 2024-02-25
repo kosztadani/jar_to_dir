@@ -131,18 +131,16 @@ function print_help() {
 
 function unzip_max_recurse_times() {
   for _ in $(seq 1 "${MAX_RECURSE}"); do
-    unzip_once
-    if [[ "$?" -eq "1" ]]; then
-      break
+    if ! unzip_once; then
+      return;
     fi
   done
 }
 
 function unzip_infinite() {
   while true; do
-    unzip_once
-    if [[ "$?" -eq "1" ]]; then
-      break
+    if ! unzip_once; then
+      return;
     fi
   done
 }
